@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dwh66yfpkqum1"]
 
-[ext_resource type="Script" path="res://scripts/victory.cs" id="1_1k1us"]
+[ext_resource type="Script" path="res://scripts/victory.gd" id="1_ht2vf"]
 [ext_resource type="Texture2D" uid="uid://cs8ipe2q5t2p7" path="res://assets/goblinstorm_logo.png" id="2_veh5x"]
 
 [sub_resource type="Animation" id="Animation_bmibt"]
@@ -221,7 +221,7 @@ _data = {
 }
 
 [node name="Victory" type="Node2D"]
-script = ExtResource("1_1k1us")
+script = ExtResource("1_ht2vf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
