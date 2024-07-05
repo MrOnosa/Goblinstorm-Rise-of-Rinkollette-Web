@@ -31,14 +31,14 @@ func _process(delta):
 	
 func _on_start_button_pressed():
 	global.GoblinMode = false
-	get_tree().change_scene("res://scenes/level.tscn")
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
 func _on_start_goblin_mode_button_pressed():
 	global.GoblinMode = true
-	get_tree().change_scene("res://scenes/level.tscn")
+	get_tree().change_scene_to_file("res://scenes/level.tscn")
 
 func _on_credits_button_pressed():
-	get_tree().change_scene("res://scenes/credits.tscn")
+	get_tree().change_scene_to_file("res://scenes/credits.tscn")
 
 func _on_quit_game_button_pressed():
 	get_tree().quit()
