@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0hr4r3osblyx"]
+
+[ext_resource type="Script" path="res://scripts/magic_bullet.cs" id="1_f87gs"]
+[ext_resource type="Texture2D" uid="uid://bwfyacgfvakjg" path="res://assets/bullet2.png" id="2_0fg8j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c5wrp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0fg8j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7aouh"]
+radius = 4.0
+height = 16.0
+
+[node name="MagicBullet" type="Area2D"]
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_f87gs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_c5wrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7aouh")
+
+[node name="LifespanTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="LifespanTimer" to="." method="_on_lifespan_timer_timeout"]

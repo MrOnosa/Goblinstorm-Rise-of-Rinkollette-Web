@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://beitbktuljj8o"]
+
+[ext_resource type="Script" path="res://scripts/gm.gd" id="1_qvdls"]
+[ext_resource type="AudioStream" uid="uid://cc0ag7c05p2q0" path="res://assets/music/Game_Jam_Rise_of_Rinkollette_Title_Song_trimmed_normalized.mp3" id="2_xmf0g"]
+[ext_resource type="AudioStream" uid="uid://dxw1glr6w8trg" path="res://assets/sounds/hitHurter.wav" id="3_h566f"]
+
+[node name="GM" type="Node"]
+process_mode = 3
+script = ExtResource("1_qvdls")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xmf0g")
+autoplay = true
+
+[node name="SettingsDebouncingTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_h566f")
+
+[connection signal="timeout" from="SettingsDebouncingTimer" to="." method="_on_settings_debouncing_timer_timeout"]

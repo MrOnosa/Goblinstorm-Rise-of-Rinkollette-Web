@@ -1,0 +1,156 @@
+[gd_scene load_steps=14 format=3 uid="uid://dgimmwg1i8gb0"]
+
+[ext_resource type="Script" path="res://scripts/level.cs" id="1_a0w5b"]
+[ext_resource type="PackedScene" uid="uid://d3vw40ce38beq" path="res://scenes/witch.tscn" id="1_f848o"]
+[ext_resource type="PackedScene" uid="uid://dinajqbfko0y" path="res://scenes/green_goblin.tscn" id="2_r0ujc"]
+[ext_resource type="PackedScene" uid="uid://byyw4cuk8c0vm" path="res://scenes/pink_goblin.tscn" id="3_2gt1r"]
+[ext_resource type="Texture2D" uid="uid://bcmr8lu3d46hd" path="res://assets/Inventory.png" id="4_iawn8"]
+[ext_resource type="Texture2D" uid="uid://b1i7bf2xt13cf" path="res://assets/simpleBackgroundTile.png" id="5_d6d32"]
+[ext_resource type="Script" path="res://scripts/Inventory.cs" id="5_xmwtf"]
+[ext_resource type="PackedScene" uid="uid://cn320bnwu77pd" path="res://item_animated_sprite_2d.tscn" id="6_flddd"]
+[ext_resource type="PackedScene" uid="uid://534fjhjc57pk" path="res://scenes/item.tscn" id="7_hvyiu"]
+[ext_resource type="PackedScene" uid="uid://b1rd3bj57wgm2" path="res://scenes/life_bar.tscn" id="9_njkyc"]
+[ext_resource type="PackedScene" uid="uid://dqjngkwhdbiol" path="res://scenes/pause.tscn" id="11_n1j7d"]
+
+[sub_resource type="Curve2D" id="Curve2D_6ldnn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -80, -80, 0, 0, 0, 0, 288, -144, 0, 0, 0, 0, 720, -64, 0, 0, 0, 0, 760, 192, 0, 0, 0, 0, 704, 448, 0, 0, 0, 0, 320, 512, 0, 0, 0, 0, -64, 448, 0, 0, 0, 0, -128, 192, 0, 0, 0, 0, -80, -80)
+}
+point_count = 9
+
+[sub_resource type="Curve2D" id="Curve2D_urbfd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3, -119, -57.0819, -64.2172, 57.0819, 64.2172, 259, -55, 58.8657, -61.8388, -58.8657, 61.8388, 259, 73, 0, 0, 0, 0, 3, 137, 63.6226, 61.2442, -63.6226, -61.2442, -253, 73, -65.4064, 65.4064, 65.4064, -65.4064, -253, -55, 0, 0, 0, 0, 3, -119)
+}
+point_count = 7
+
+[node name="Level" type="Node2D"]
+process_mode = 1
+script = ExtResource("1_a0w5b")
+GreenMobScene = ExtResource("2_r0ujc")
+PinkMobScene = ExtResource("3_2gt1r")
+PickableStaffScene = ExtResource("7_hvyiu")
+
+[node name="Witch" parent="." instance=ExtResource("1_f848o")]
+position = Vector2(317, 183)
+
+[node name="MobPath2D" type="Path2D" parent="Witch"]
+position = Vector2(-317, -183)
+curve = SubResource("Curve2D_6ldnn")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="Witch/MobPath2D"]
+position = Vector2(-80, -80)
+rotation = -0.172191
+
+[node name="StaffPath2D" type="Path2D" parent="Witch"]
+curve = SubResource("Curve2D_urbfd")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="StaffPathLocation" type="PathFollow2D" parent="Witch/StaffPath2D"]
+position = Vector2(3, -119)
+rotation = 0.244979
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Tutorial" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -130.0
+offset_right = 56.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Grab a staff!"
+
+[node name="GoblinModeLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -112.0
+offset_top = 15.0
+offset_right = -6.0
+offset_bottom = 38.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+text = "Goblin Mode"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer"]
+offset_left = 2.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 39.0
+text = "Options"
+
+[node name="Inventory" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_iawn8")
+script = ExtResource("5_xmwtf")
+
+[node name="AnimatedSprite2D" parent="CanvasLayer/Inventory" instance=ExtResource("6_flddd")]
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+text = "Wave       "
+
+[node name="WaveCountLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -28.0
+offset_right = -4.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "1"
+horizontal_alignment = 2
+
+[node name="LifeBar" parent="CanvasLayer" instance=ExtResource("9_njkyc")]
+position = Vector2(20, 340)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(640, 640)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_repeat = 2
+texture = ExtResource("5_d6d32")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 640)
+
+[node name="MobSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="StaffSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Pause" parent="." instance=ExtResource("11_n1j7d")]
+
+[connection signal="Died" from="Witch" to="." method="_on_witch_died"]
+[connection signal="HealthChanged" from="Witch" to="." method="_on_witch_health_changed"]
+[connection signal="ItemChanged" from="Witch" to="." method="_on_witch_item_changed"]
+[connection signal="ItemChanged" from="Witch" to="CanvasLayer/Inventory" method="_on_witch_item_changed"]
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="Pause" method="_on_menu_button_pressed"]
+[connection signal="timeout" from="MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
+[connection signal="timeout" from="StaffSpawnTimer" to="." method="_on_staff_spawn_timer_timeout"]

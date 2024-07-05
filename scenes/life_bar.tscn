@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1rd3bj57wgm2"]
+
+[ext_resource type="Script" path="res://scripts/life_bar.cs" id="1_kx05c"]
+[ext_resource type="PackedScene" uid="uid://cg5s1q0fwrrfn" path="res://scenes/life_heart.tscn" id="2_d32fv"]
+
+[node name="LifeBar" type="Node2D"]
+script = ExtResource("1_kx05c")
+HeartScene = ExtResource("2_d32fv")
+
+[node name="LifeHeart" parent="." instance=ExtResource("2_d32fv")]
+
+[node name="LifeHeart2" parent="." instance=ExtResource("2_d32fv")]
+position = Vector2(32, 0)
+
+[node name="LifeHeart3" parent="." instance=ExtResource("2_d32fv")]
+position = Vector2(64, 0)
+frame = 1
