@@ -1,6 +1,6 @@
 [gd_scene load_steps=34 format=3 uid="uid://d3vw40ce38beq"]
 
-[ext_resource type="Script" path="res://scripts/witch.cs" id="1_uilfk"]
+[ext_resource type="Script" path="res://scripts/witch.gd" id="1_op8ba"]
 [ext_resource type="Shader" path="res://scenes/witch.gdshader" id="2_j17f8"]
 [ext_resource type="PackedScene" uid="uid://pkfb6tq1qoo4" path="res://scenes/health_component.tscn" id="3_ghxkk"]
 [ext_resource type="Texture2D" uid="uid://c1qkmxt60fc0j" path="res://assets/player_iddle.png" id="4_4tall"]
@@ -174,7 +174,7 @@ height = 32.0
 
 [node name="Witch" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_uilfk")
+script = ExtResource("1_op8ba")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_s5etq")
@@ -225,7 +225,5 @@ position = Vector2(0, -12)
 current = true
 
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]
-[connection signal="Died" from="HealthComponent" to="." method="_on_health_component_died"]
-[connection signal="HealthChanged" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="area_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_area_entered"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

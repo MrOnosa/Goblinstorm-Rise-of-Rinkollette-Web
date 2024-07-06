@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://wqd2eildcrmk"]
 
-[ext_resource type="Script" path="res://scripts/magic_bullet.cs" id="1_j45bt"]
+[ext_resource type="Script" path="res://scripts/magic_bullet.gd" id="1_1xinu"]
 [ext_resource type="Texture2D" uid="uid://duo1qnhy3y165" path="res://assets/bullet.png" id="1_ly0sv"]
 [ext_resource type="Texture2D" uid="uid://bm7l8gbyovu1k" path="res://assets/EmptyItem.png" id="2_dfso8"]
 [ext_resource type="Texture2D" uid="uid://cbmenksuibcgb" path="res://assets/pinkBullet.png" id="4_8lkly"]
@@ -27,7 +27,7 @@ radius = 16.0
 
 [node name="MagicBullet" type="Area2D"]
 scale = Vector2(0.25, 0.25)
-script = ExtResource("1_j45bt")
+script = ExtResource("1_1xinu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ftvhu")
