@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://dinajqbfko0y"]
 
+[ext_resource type="Script" path="res://scripts/green_goblin.gd" id="1_gwg3k"]
 [ext_resource type="Texture2D" uid="uid://bj03m4yh64d43" path="res://assets/characters/enemyG_placeholder.png" id="1_tf3ux"]
-[ext_resource type="Script" path="res://scripts/green_goblin.cs" id="1_v5pvm"]
 [ext_resource type="PackedScene" uid="uid://pkfb6tq1qoo4" path="res://scenes/health_component.tscn" id="3_q4q4w"]
 [ext_resource type="Texture2D" uid="uid://cilawpngemsxr" path="res://assets/enemy2_anim.png" id="3_u7ku5"]
 [ext_resource type="AudioStream" uid="uid://buwt218qnhtv0" path="res://assets/sounds/hitHurt.wav" id="5_b5t1l"]
@@ -110,8 +110,7 @@ animations = [{
 height = 40.0
 
 [node name="greenGoblin" type="Area2D"]
-script = ExtResource("1_v5pvm")
-Speed = 0.5
+script = ExtResource("1_gwg3k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_xk6ju")
@@ -125,7 +124,6 @@ position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m1pke")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_q4q4w")]
-MaxHealth = 5
 
 [node name="ShootBulletTimer" type="Timer" parent="."]
 autostart = true
@@ -151,6 +149,5 @@ stream = ExtResource("7_dquh7")
 stream = ExtResource("8_emvcj")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="Died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="timeout" from="ShootBulletTimer" to="." method="_on_shoot_bullet_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

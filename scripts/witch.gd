@@ -128,23 +128,21 @@ func _on_health_component_died():
 	Died.emit()
 
 func _on_hit_box_area_2d_area_entered(area):
-	pass
-	# TODO Once we have goblins, bullets, and items ported, we can work on this
-	#if not Invincible:
-		#if area is green_goblin:
-			#TakeDamageRoutine(2)
-		#elif area is magic_bullet:
-			#if not area.FriendlyFire:
-				#TakeDamageRoutine(1)
-	#
-	#if area is item:
-		#InventorySlot1 = area.Type
-		#area.queue_free()
-		#ItemChanged.emit(InventorySlot1)
-		#
-		#var sfx = get_node("PickUpStaffAudioStreamPlayer2D")
-		#sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
-		#sfx.play()
+	if not Invincible:
+		if area is green_goblin:
+			TakeDamageRoutine(2)
+		elif area is magic_bullet:
+			if not area.FriendlyFire:
+				TakeDamageRoutine(1)
+	
+	if area is item:
+		InventorySlot1 = area.Type
+		area.queue_free()
+		ItemChanged.emit(InventorySlot1)
+		
+		var sfx = get_node("PickUpStaffAudioStreamPlayer2D")
+		sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
+		sfx.play()
 
 func TakeDamageRoutine(damage):
 	_invincibilityTimer.start()

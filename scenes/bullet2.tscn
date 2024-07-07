@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c0hr4r3osblyx"]
 
-[ext_resource type="Script" path="res://scripts/magic_bullet.cs" id="1_f87gs"]
+[ext_resource type="Script" path="res://scripts/magic_bullet.gd" id="1_2mls3"]
 [ext_resource type="Texture2D" uid="uid://bwfyacgfvakjg" path="res://assets/bullet2.png" id="2_0fg8j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c5wrp"]
@@ -20,7 +20,7 @@ height = 16.0
 
 [node name="MagicBullet" type="Area2D"]
 scale = Vector2(0.25, 0.25)
-script = ExtResource("1_f87gs")
+script = ExtResource("1_2mls3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c5wrp")
