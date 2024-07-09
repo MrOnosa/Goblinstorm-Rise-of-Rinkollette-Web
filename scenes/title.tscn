@@ -166,6 +166,7 @@ offset_bottom = 245.0
 text = "Credits"
 
 [node name="QuitGameButton" type="Button" parent="."]
+visible = false
 layout_mode = 2
 offset_left = 31.0
 offset_top = 311.0

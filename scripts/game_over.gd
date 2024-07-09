@@ -31,7 +31,7 @@ func _process(delta):
 	t = min(t, 1) 
 
 	var interpolatedValue = startValue + t * (endValue - startValue)
-	_backgroundTextureRect.material.set("shader_parameter/difference", interpolatedValue)
+	_backgroundTextureRect.material.set_shader_parameter("difference", interpolatedValue)
 
 
 func _on_restart_button_pressed():

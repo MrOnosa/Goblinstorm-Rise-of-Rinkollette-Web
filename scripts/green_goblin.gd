@@ -55,7 +55,7 @@ func _on_area_entered(area: Area2D) -> void:
 				health_component.damage(1)
 				if hurt_timer.is_stopped():
 					var sprite = get_node("AnimatedSprite2D")
-					sprite.material.set("hurt", true)
+					sprite.material.set_shader_parameter("hurt", true)
 				hurt_timer.start(1)
 
 				var sfx = get_node("HurtAudioStreamPlayer2D") as AudioStreamPlayer2D
@@ -68,7 +68,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_hurt_timer_timeout() -> void:
 	var sprite = get_node("AnimatedSprite2D")
-	sprite.material.set("hurt", false)
+	sprite.material.set_shader_parameter("hurt", false)
 	hurt_timer.stop()
 
 func _on_health_component_died() -> void:

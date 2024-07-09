@@ -7,6 +7,8 @@
 [node name="GM" type="Node"]
 process_mode = 3
 script = ExtResource("1_qvdls")
+Volume = 0.5
+SfxVolume = 0.5
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_xmf0g")

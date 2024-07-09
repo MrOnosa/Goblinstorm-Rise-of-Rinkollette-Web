@@ -9,7 +9,7 @@ var Stages : Array = []
 
 var _stats : Stats
 
-@onready var _waveCountLabel = $CanvasLayer/WaveLabel
+@onready var _waveCountLabel = $CanvasLayer/WaveCountLabel
 @onready var _tutorialLabel = $CanvasLayer/Tutorial
 @onready var _witch = $Witch
 
@@ -145,7 +145,7 @@ func _mob_died_handler(type : Constants.ItemType):
 		if global.GoblinMode:
 			# Goblins gonna goblin forever...
 			var total = floor(pow(CurrentStage, 1.5) + 4.0)
-			var green = randi() % total
+			var green = randi_range(0, total)
 			Stages.append({
 				'TotalGreenGoblins': green,
 				'TotalPinkGoblins': total - green

@@ -111,6 +111,7 @@ height = 40.0
 
 [node name="greenGoblin" type="Area2D"]
 script = ExtResource("1_gwg3k")
+Speed = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_xk6ju")
@@ -124,6 +125,7 @@ position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_m1pke")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_q4q4w")]
+max_health = 5
 
 [node name="ShootBulletTimer" type="Timer" parent="."]
 autostart = true
@@ -149,5 +151,6 @@ stream = ExtResource("7_dquh7")
 stream = ExtResource("8_emvcj")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
 [connection signal="timeout" from="ShootBulletTimer" to="." method="_on_shoot_bullet_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
