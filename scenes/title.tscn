@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcvmpuuwg1eof"]
+[gd_scene load_steps=14 format=3 uid="uid://dcvmpuuwg1eof"]
 
 [ext_resource type="Script" path="res://scripts/title.gd" id="1_37s7g"]
 [ext_resource type="FontFile" uid="uid://dng2s801fsbhl" path="res://assets/fonts/Xolonium-Regular.ttf" id="2_4ns7a"]
 [ext_resource type="Texture2D" uid="uid://dnd8yibeaff6s" path="res://assets/goblinstorm2.png" id="2_n0d2y"]
 [ext_resource type="Texture2D" uid="uid://cs8ipe2q5t2p7" path="res://assets/goblinstorm_logo.png" id="4_jei56"]
+[ext_resource type="PackedScene" uid="uid://dinajqbfko0y" path="res://scenes/green_goblin.tscn" id="5_5173b"]
+[ext_resource type="PackedScene" uid="uid://byyw4cuk8c0vm" path="res://scenes/pink_goblin.tscn" id="6_5pdu2"]
+[ext_resource type="PackedScene" uid="uid://d3vw40ce38beq" path="res://scenes/witch.tscn" id="7_vwhmo"]
 
 [sub_resource type="Gradient" id="Gradient_80w2h"]
 offsets = PackedFloat32Array(0.96962)
@@ -80,6 +83,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_37s7g")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 180)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -207,6 +213,21 @@ offset_top = 311.0
 offset_right = 285.0
 offset_bottom = 339.0
 text = "Fullscreen"
+
+[node name="OffScreenThingsToCombatLag" type="Node2D" parent="."]
+process_mode = 4
+
+[node name="greenGoblin" parent="OffScreenThingsToCombatLag" instance=ExtResource("5_5173b")]
+process_mode = 4
+position = Vector2(996, 53)
+
+[node name="pinkGoblin" parent="OffScreenThingsToCombatLag" instance=ExtResource("6_5pdu2")]
+process_mode = 4
+position = Vector2(1055, 58)
+
+[node name="Witch" parent="OffScreenThingsToCombatLag" instance=ExtResource("7_vwhmo")]
+process_mode = 4
+position = Vector2(1094.45, 122.703)
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]

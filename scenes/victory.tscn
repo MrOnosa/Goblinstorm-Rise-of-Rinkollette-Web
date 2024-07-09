@@ -256,6 +256,7 @@ layout_mode = 2
 text = "Return to Main Menu"
 
 [node name="QuitGameButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+visible = false
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../RestartButton")
 text = "Quit Game
