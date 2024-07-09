@@ -191,10 +191,6 @@ shape = SubResource("CapsuleShape2D_l7uv5")
 wait_time = 0.1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_horizontal_offset = 1.0
-drag_vertical_offset = 1.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_ghxkk")]
 
@@ -225,5 +221,7 @@ position = Vector2(0, -12)
 current = true
 
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_component_health_changed"]
 [connection signal="area_entered" from="HitBoxArea2D" to="." method="_on_hit_box_area_2d_area_entered"]
 [connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]

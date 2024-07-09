@@ -10,13 +10,13 @@ var Speed = 100.0
 var shooting = false
 var Invincible = false
 
-@export var InventorySlot1 = Constants.ItemType.None
+@export var InventorySlot1 : Constants.ItemType = Constants.ItemType.None
 
 @onready var _animatedSprite2D = $"AnimatedSprite2D"
 @onready var _timer = $"ShootCooldownTimer"
 @onready var _invincibilityTimer = $"InvincibilityTimer"
 @onready var _camera = $"Camera2D"
-@onready var _healthComponent = $"HealthComponent"
+@onready var _healthComponent : health_component = $"HealthComponent"
 
 func _ready():
 	global = get_node("/root/GM")
@@ -40,8 +40,8 @@ func _physics_process(delta):
 		v_local.x = direction.x * Speed
 		v_local.y = direction.y * Speed
 	else:
-		v_local.x = lerp(velocity.x, 0.0, Speed)
-		v_local.y = lerp(velocity.y, 0.0, Speed)
+		v_local.x = move_toward(velocity.x, 0.0, Speed)
+		v_local.y = move_toward(velocity.y, 0.0, Speed)
 
 	velocity = v_local
 	
@@ -83,18 +83,18 @@ func Shoot():
 
 func InitMagicBullet():
 	var scene = load("res://scenes/magic_bullet.tscn")
-	var inst = scene.instance()
+	var inst = scene.instantiate()
 	inst.FriendlyFire = true
 	inst.global_position = global_position
 	inst.Type = InventorySlot1
 
 	if InventorySlot1 == Constants.ItemType.GreenStaff:
 		var sfx = get_node("ShootGreenAudioStreamPlayer2D")
-		sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
+		sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 		sfx.play()
 	elif InventorySlot1 == Constants.ItemType.PinkStaff:
 		var sfx = get_node("ShootPinkAudioStreamPlayer2D")
-		sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
+		sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 		sfx.play()
 
 	return inst
@@ -116,9 +116,17 @@ func TwinStickShoot():
 func _on_shoot_cooldown_timer_timeout():
 	shooting = false
 	
+func _on_health_component_health_changed(healthUpdate : HealthUpdate):
+	if healthUpdate.current_health > 0:
+		var sfx = get_node("HurtAudioStreamPlayer2D")
+		sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
+		sfx.play()
+	
+	HealthChanged.emit(healthUpdate)
+	
 func _on_health_component_died():
 	var sfx = get_node("DiedAudioStreamPlayer2D")
-	sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
+	sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 	sfx.play()
 	visible = false
 	
@@ -141,12 +149,12 @@ func _on_hit_box_area_2d_area_entered(area):
 		ItemChanged.emit(InventorySlot1)
 		
 		var sfx = get_node("PickUpStaffAudioStreamPlayer2D")
-		sfx.volume_db = global.ConvertVolumeToDbVolume(global.SfxVolume)
+		sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 		sfx.play()
 
 func TakeDamageRoutine(damage):
 	_invincibilityTimer.start()
-	_healthComponent.Damage(damage)
+	_healthComponent.damage(damage)
 	Invincible = true
 	_toggle_invincible_shader(true)
 	
@@ -158,3 +166,4 @@ func _on_invincibility_timer_timeout():
 func _toggle_invincible_shader(active):
 	var sprite = $"AnimatedSprite2D"
 	sprite.material.set("shader_parameter/invincible", active)
+

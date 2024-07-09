@@ -90,30 +90,30 @@ func _on_mob_spawn_timer_timeout():
 	for _i in range(currentStage["TotalPinkGoblins"]):
 		goblinBag.append('P')
 
-	if goblinBag.count == 0: return
+	if goblinBag.size() == 0: return
 
 	var winner = goblinBag[randi() % goblinBag.size()]
 	print("Winner "+winner)
-	var mob = null
+	var mob : green_goblin = null
 
 	if winner == 'G':
 		currentStage["TotalGreenGoblins"] -= 1
-		mob = GreenMobScene.instance()
+		mob = GreenMobScene.instantiate()
 	elif winner == 'P':
 		currentStage["TotalPinkGoblins"] -= 1
-		mob = PinkMobScene.instance()
+		mob = PinkMobScene.instantiate()
 
 	var mobSpawnLocation = get_node("Witch/MobPath2D/MobSpawnLocation")
-	mobSpawnLocation.offset = randf()
+	mobSpawnLocation.progress_ratio = randf()
 
 	# Set the mob's position to a random location
 	mob.global_position = mobSpawnLocation.global_position
-	mob.connect("Dead", self, "_mob_died_handler")
+	mob.Dead.connect(_mob_died_handler)
 
 	# Spawn the mob by adding it to the Main scene
 	add_child(mob)
 
-func _mob_died_handler(type):
+func _mob_died_handler(type : Constants.ItemType):
 	global.EverKilledGoblin = true
 	match type:
 		Constants.ItemType.GreenStaff:
@@ -164,23 +164,23 @@ func _on_staff_spawn_timer_timeout():
 		if child is item:
 			allItems.push_back(child)
 	if allItems.size() < 4:
-		var staff = PickableStaffScene.instance()
+		var staff : item = PickableStaffScene.instantiate()
 		var spawnLocation = get_node("Witch/StaffPath2D/StaffPathLocation")
-		spawnLocation.offset = randf()
+		spawnLocation.progress_ratio = randf()
 
 		# Set the mob's position to a random location.
 		staff.global_position = spawnLocation.global_position
 		if randi() % 2 == 0:
-			staff.typ = Constants.ItemType.GreenStaff
+			staff.Type = Constants.ItemType.GreenStaff
 		else:
-			staff.typ = Constants.ItemType.PinkStaff
+			staff.Type = Constants.ItemType.PinkStaff
 			
 		# Spawn the mob by adding it to the Main scene.
 		add_child(staff)
 
-func _on_witch_health_changed(healthUpdate):
+func _on_witch_health_changed(healthUpdate : HealthUpdate):
 	var lifeBar = get_node("CanvasLayer/LifeBar")
-	lifeBar.paint(healthUpdate.currentHealth)
+	lifeBar.paint(healthUpdate.current_health)
 
 func _on_witch_item_changed(itemType):
 	global.EverHeldItem = true
@@ -188,7 +188,7 @@ func _on_witch_item_changed(itemType):
 	for child in get_children():
 		if child is green_goblin:
 			var g = child as green_goblin
-			anyGoblinsWeakToItemType |= g.WeakToType == itemType
+			anyGoblinsWeakToItemType = anyGoblinsWeakToItemType || g.WeakToType == itemType
 	
 	if anyGoblinsWeakToItemType:
 		global.EverHeldCorrectItem = true
@@ -197,4 +197,4 @@ func _on_witch_item_changed(itemType):
 func _on_witch_died():
 	#TODO: Death animation
 	global.GameStats = _stats
-	get_tree().change_scene("res://scenes/game_over.tscn")
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")

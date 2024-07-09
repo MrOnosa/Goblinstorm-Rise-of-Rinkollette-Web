@@ -1,11 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgimmwg1i8gb0"]
+[gd_scene load_steps=14 format=3 uid="uid://dgimmwg1i8gb0"]
 
 [ext_resource type="PackedScene" uid="uid://d3vw40ce38beq" path="res://scenes/witch.tscn" id="1_f848o"]
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_vb3lf"]
+[ext_resource type="PackedScene" uid="uid://dinajqbfko0y" path="res://scenes/green_goblin.tscn" id="2_r0ujc"]
+[ext_resource type="PackedScene" uid="uid://byyw4cuk8c0vm" path="res://scenes/pink_goblin.tscn" id="3_2gt1r"]
 [ext_resource type="Script" path="res://scripts/Inventory.gd" id="4_gha4c"]
 [ext_resource type="Texture2D" uid="uid://bcmr8lu3d46hd" path="res://assets/Inventory.png" id="4_iawn8"]
 [ext_resource type="Texture2D" uid="uid://b1i7bf2xt13cf" path="res://assets/simpleBackgroundTile.png" id="5_d6d32"]
 [ext_resource type="PackedScene" path="res://item_animated_sprite_2d.tscn" id="6_flddd"]
+[ext_resource type="PackedScene" uid="uid://534fjhjc57pk" path="res://scenes/item.tscn" id="7_hvyiu"]
 [ext_resource type="PackedScene" uid="uid://b1rd3bj57wgm2" path="res://scenes/life_bar.tscn" id="9_njkyc"]
 [ext_resource type="PackedScene" uid="uid://dqjngkwhdbiol" path="res://scenes/pause.tscn" id="11_n1j7d"]
 
@@ -24,6 +27,9 @@ point_count = 7
 [node name="Level" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_vb3lf")
+GreenMobScene = ExtResource("2_r0ujc")
+PinkMobScene = ExtResource("3_2gt1r")
+PickableStaffScene = ExtResource("7_hvyiu")
 
 [node name="Witch" parent="." instance=ExtResource("1_f848o")]
 position = Vector2(317, 183)

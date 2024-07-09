@@ -29,13 +29,13 @@ func paint(hp):
 	var x = 0
 	var odd = hp % 2 == 1
 	for i in range(int(hp / 2)):
-		var heart = HeartScene.instance()
+		var heart = HeartScene.instantiate()
 		heart.position = Vector2(x, 0)
 		x += OFFSET
 		add_child(heart)
 
 	if odd:
-		var heart = HeartScene.instance()
+		var heart = HeartScene.instantiate()
 		heart.position = Vector2(x, 0)
 		heart.frame = 1
 		add_child(heart)

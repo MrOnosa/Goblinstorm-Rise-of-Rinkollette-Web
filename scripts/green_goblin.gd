@@ -1,7 +1,7 @@
 extends Area2D
 class_name green_goblin
 
-var global = null
+var global : gm = null
 
 @export var Speed: float = 1.0
 @export var BulletFireWaitTime: float = 1.0
@@ -19,7 +19,7 @@ const BULLET_2 = preload("res://scenes/bullet2.tscn")
 
 
 func _ready() -> void:
-	global = get_node("/root/GM")
+	global = get_node("/root/GM") as gm
 	
 	set_shoot_bullet_timer_wait_time_to_a_random_range()
 
@@ -28,7 +28,8 @@ func _ready() -> void:
 		sprite.material = sprite.material.duplicate()
 
 func set_shoot_bullet_timer_wait_time_to_a_random_range() -> void:
-	shoot_bullet_timer.wait_time = randf_range(BulletFireWaitTime * BulletFireVariance, BulletFireWaitTime + (BulletFireWaitTime * BulletFireVariance))
+	if shoot_bullet_timer != null:
+		shoot_bullet_timer.wait_time = randf_range(BulletFireWaitTime * BulletFireVariance, BulletFireWaitTime + (BulletFireWaitTime * BulletFireVariance))
 
 func _process(delta):
 	pass
@@ -47,8 +48,8 @@ func _on_area_entered(area: Area2D) -> void:
 		var bullet = area as magic_bullet
 		if bullet.FriendlyFire:
 			bullet.queue_free()
-			if bullet.velocity != null:
-				position += bullet.velocity
+			if bullet.Velocity != null:
+				position += bullet.Velocity
 
 			if bullet.Type == WeakToType:
 				health_component.damage(1)
@@ -57,12 +58,12 @@ func _on_area_entered(area: Area2D) -> void:
 					sprite.material.set("hurt", true)
 				hurt_timer.start(1)
 
-				var sfx = get_node("HurtAudioStreamPlayer2D")
-				sfx.volume_db = global.convert_volume_to_db_volume(global.sfx_volume)
+				var sfx = get_node("HurtAudioStreamPlayer2D") as AudioStreamPlayer2D
+				sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 				sfx.play()
 			else:
-				var sfx = get_node("NotHurtAudioStreamPlayer2D")
-				sfx.volume_db = global.convert_volume_to_db_volume(global.sfx_volume)
+				var sfx = get_node("NotHurtAudioStreamPlayer2D") as AudioStreamPlayer2D
+				sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 				sfx.play()
 
 func _on_hurt_timer_timeout() -> void:
@@ -72,7 +73,7 @@ func _on_hurt_timer_timeout() -> void:
 
 func _on_health_component_died() -> void:
 	var sfx = get_node("DoomDoomDeadosAudioStreamPlayer2D")
-	sfx.volume_db = global.convert_volume_to_db_volume(global.sfx_volume)
+	sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 	sfx.play()
 	visible = false
 	
@@ -102,15 +103,15 @@ func _on_shoot_bullet_timer_timeout() -> void:
 		inst.global_position = global_position
 	
 	var level = get_parent()
-	var witch = level.find_node("Witch")
+	var witch = level.find_child("Witch")
 	var mouse_pos = witch.global_position
 
 	var direction = (mouse_pos - inst.global_position).normalized()
-	inst.velocity = direction * magic_bullet.Speed
-	inst.rotation = inst.velocity.angle() + PI
+	inst.Velocity = direction * magic_bullet.Speed
+	inst.rotation = inst.Velocity.angle() + PI
 
 	add_sibling(inst)
 
 	var sfx = get_node("GunShotAudioStreamPlayer2D")
-	sfx.volume_db = global.convert_volume_to_db_volume(global.sfx_volume)
+	sfx.volume_db = global.convert_volume_to_db_volume(global.SfxVolume)
 	sfx.play()

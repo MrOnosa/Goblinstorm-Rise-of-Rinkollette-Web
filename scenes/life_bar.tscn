@@ -5,6 +5,7 @@
 
 [node name="LifeBar" type="Node2D"]
 script = ExtResource("1_51woh")
+HeartScene = ExtResource("2_d32fv")
 
 [node name="LifeHeart" parent="." instance=ExtResource("2_d32fv")]
 

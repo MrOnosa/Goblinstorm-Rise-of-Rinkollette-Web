@@ -1,4 +1,5 @@
 extends Node2D
+class_name health_component
 
 @export var max_health = 10
 
