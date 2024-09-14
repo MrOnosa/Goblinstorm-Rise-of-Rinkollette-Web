@@ -166,4 +166,3 @@ func _on_invincibility_timer_timeout():
 func _toggle_invincible_shader(active):
 	var sprite = $"AnimatedSprite2D"
 	sprite.material.set_shader_parameter("invincible", active)
-
