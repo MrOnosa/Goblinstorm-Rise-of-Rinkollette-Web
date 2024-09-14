@@ -115,12 +115,15 @@ position = Vector2(-24, 4)
 
 [node name="HurtAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_j3n8p")
+bus = &"SFX"
 
 [node name="NotHurtAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_dxmea")
+bus = &"SFX"
 
 [node name="DoomDoomDeadosAudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_1uire")
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

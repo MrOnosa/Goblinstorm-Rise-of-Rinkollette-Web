@@ -13,11 +13,13 @@ SfxVolume = 0.5
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_xmf0g")
 autoplay = true
+bus = &"Music"
 
 [node name="SettingsDebouncingTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="SfxAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_h566f")
+bus = &"SFX"
 
 [connection signal="timeout" from="SettingsDebouncingTimer" to="." method="_on_settings_debouncing_timer_timeout"]

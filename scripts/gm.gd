@@ -10,6 +10,7 @@ var audio_stream_player : AudioStreamPlayer
 var GameStats : Stats;
 var GoblinMode: bool = false
 
+
 # Tutorial Flags
 var EverHeldItem: bool = false
 var EverHeldCorrectItem: bool = false
